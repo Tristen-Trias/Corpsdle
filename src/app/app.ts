@@ -4,6 +4,7 @@ import { GameService, MAX_GUESSES } from './services/game';
 import { FieldHint } from './models/show';
 
 const THEME_STORAGE_KEY = 'corpsdle-theme';
+const HOW_TO_PLAY_SEEN_KEY = 'corpsdle-how-to-play-seen';
 
 type Theme = 'dark' | 'light';
 
@@ -28,6 +29,11 @@ export class App {
 
   constructor() {
     this.applyTheme(this.theme());
+
+    if (!localStorage.getItem(HOW_TO_PLAY_SEEN_KEY)) {
+      this.howToPlayOpen.set(true);
+      localStorage.setItem(HOW_TO_PLAY_SEEN_KEY, 'true');
+    }
   }
 
   private loadInitialTheme(): Theme {
