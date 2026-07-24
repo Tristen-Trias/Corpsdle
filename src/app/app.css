@@ -505,6 +505,12 @@
 
 /* ---------- Responsive ---------- */
 
+@media (max-width: 600px) {
+  .scoreboard-header {
+    padding-top: 2.75rem;
+  }
+}
+
 @media (max-width: 480px) {
   .board-row {
     grid-template-columns: 1.1fr repeat(4, 1fr);
