@@ -1,59 +1,32 @@
-# Drumcorpsdle
+# Corpsdle — a daily DCI show guessing game
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.8.
+A Wordle-style daily guessing game built in Angular 22 (standalone components, signals,
+new `@if`/`@for` control flow). Guess today's Drum Corps International Finals program by
+**title**. Each guess reveals how close you were on **Corps**, **Year**, **Score**, and
+**Placement**, with directional arrows pointing toward the true answer.
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run it
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Then open http://localhost:4200.
 
-```bash
-ng generate --help
-```
+## How it works
 
-## Building
+- `public/data/shows-2025.json` holds the pool of shows the game draws from — corps, year,
+  score, and Finals placement. This is the file you'd swap out or grow to add more shows.
+- The day's answer is picked deterministically from that pool based on the current date,
+  so everyone sees the same puzzle on a given day, and it rotates at midnight local time.
+- Guesses must match a title in the pool exactly (an autocomplete dropdown helps with
+  that) — six tries, like the games this is patterned after.
+- `src/app/services/game.ts` has all the game logic (loading data, picking the answer,
+  scoring guesses). `src/app/app.ts` / `app.html` / `app.css` render it.
 
-To build the project run:
+## Notes on the data
 
-```bash
-ng build
-```
+The sample data in `shows-2025.json` draws on real DCI World Class Finals results.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Yes, this code is very heavily extremely absolutely vibe coded. I do not condone generative AI for any creative use within DCI.

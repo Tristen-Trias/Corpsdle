@@ -1,1 +1,86 @@
-/* You can add global styles to this file, and also import other style files */
+:root,
+:root[data-theme='dark'] {
+  --turf: #1e1f22;
+  --turf-dark: #0b1610;
+  --turf-line: #24402f;
+  --chalk: #ede7d9;
+  --chalk-dim: #b9b2a1;
+  --brass: #c9a227;
+  --brass-bright: #e4c04f;
+  --amber: #ffa94d;
+  --scarlet: #a6192e;
+  --navy: #16233b;
+  --correct: #54ff90;
+  --correct-bright: #4fc172;
+
+  --surface-1: rgba(237, 231, 217, 0.05);
+  --tint-gold: rgba(201, 162, 39, 0.12);
+  --tint-red: rgba(166, 25, 46, 0.12);
+  --tint-amber: rgba(224, 141, 60, 0.22);
+  --tint-correct: rgba(84, 255, 144, 0.12);
+  --text-danger: #ff5c5c;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --glow-gold: rgba(201, 162, 39, 0.25);
+  --hover-gold-tint: rgba(201, 162, 39, 0.18);
+  --radial-glow: transparent;
+}
+
+:root[data-theme='light'] {
+  --turf: #f2ede2;
+  --turf-dark: #1f1608;
+  --turf-line: #d8cfb8;
+  --chalk: #2a2318;
+  --chalk-dim: #6f6552;
+  --brass: #b8860b;
+  --brass-bright: #bd8b17;
+  --amber: #d9720f;
+  --scarlet: #dc3f54;
+  --navy: #fdf9ef;
+  --correct: #54ff90;
+  --correct-bright: #4fc172;
+
+  --surface-1: rgba(31, 22, 8, 0.04);
+  --tint-gold: rgba(184, 134, 11, 0.14);
+  --tint-red: rgba(143, 22, 38, 0.1);
+  --tint-amber: rgba(181, 101, 29, 0.18);
+  --tint-correct: rgba(47, 143, 78, 0.14);
+  --text-danger: #880017;
+  --shadow-color: rgba(20, 20, 10, 0.15);
+  --glow-gold: rgba(184, 134, 11, 0.18);
+  --hover-gold-tint: rgba(184, 134, 11, 0.16);
+  --radial-glow: rgba(184, 134, 11, 0.06);
+}
+
+:root {
+  --font-display: 'Anton', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, var(--radial-glow), transparent 55%),
+    var(--turf);
+  color: var(--chalk);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
