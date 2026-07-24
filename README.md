@@ -27,6 +27,6 @@ Then open http://localhost:4200.
 
 ## Notes on the data
 
-The sample data in `shows-2025.json` draws on real DCI World Class Finals results.
+The sample data in `shows.json` draws on real DCI World Class Finals results.
 
 Yes, this code is very heavily extremely absolutely vibe coded. I do not condone generative AI for any creative use within DCI.
