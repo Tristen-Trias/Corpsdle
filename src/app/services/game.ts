@@ -13,6 +13,7 @@ const DAILY_STORAGE_PREFIX = 'corpsdle-daily-';
 
 type LoadState = 'loading' | 'ready' | 'error';
 type Mode = 'daily' | 'unlimited';
+export type GameStatus = 'playing' | 'won' | 'lost';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
@@ -45,7 +46,7 @@ export class GameService {
 
   readonly answer = computed<Show | null>(() => (this.isUnlimited() ? this.unlimitedAnswer() : this.dailyAnswer()));
 
-  readonly status = computed<'playing' | 'won' | 'lost'>(() => {
+  readonly status = computed<GameStatus>(() => {
     const list = this.guesses();
     if (list.some((g) => g.isWinningGuess)) return 'won';
     if (list.length >= MAX_GUESSES) return 'lost';

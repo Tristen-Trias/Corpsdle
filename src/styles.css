@@ -84,3 +84,133 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- Shared primitives ---------- */
+/* Reused by more than one component (guess form / result banner / guess board / how-to-play example board). */
+
+.submit-btn {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+  padding: 0 1.3rem;
+  background: var(--brass);
+  color: var(--turf-dark);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.submit-btn:hover {
+  background: var(--brass-bright);
+}
+
+.submit-btn:focus-visible {
+  outline: 2px solid var(--brass-bright);
+  outline-offset: 2px;
+}
+
+.error-msg {
+  margin: 0;
+  color: var(--text-danger);
+  font-size: 0.85rem;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-bottom: 2px solid var(--turf-line);
+  padding-bottom: 1rem;
+}
+
+.board-row {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: 4px;
+  align-items: stretch;
+}
+
+.board-head {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--chalk-dim);
+  padding: 0 0.15rem 0.3rem;
+  text-align: center;
+}
+
+.col-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 0.6rem;
+  overflow-wrap: anywhere;
+}
+
+.board-row:not(.board-head) .col-title {
+  background: var(--surface-1);
+  border: 1px solid var(--turf-line);
+  border-radius: 3px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.5rem 0.3rem;
+  border-radius: 3px;
+  border: 1px solid var(--turf-line);
+  text-align: center;
+}
+
+.cell-match {
+  background: var(--correct);
+  border-color: var(--correct-bright);
+  color: var(--turf-dark);
+  font-weight: 700;
+}
+
+.cell-close {
+  background: var(--tint-amber);
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.cell-far {
+  background: var(--tint-red);
+  border-color: var(--scarlet);
+  color: var(--text-danger);
+}
+
+.arrow {
+  font-style: normal;
+  font-size: 0.9em;
+}
+
+.winning-row .col-title {
+  border-color: var(--correct-bright) !important;
+  color: var(--correct-bright);
+}
+
+@media (max-width: 480px) {
+  .board-row {
+    grid-template-columns: 1.1fr repeat(4, 1fr);
+  }
+  .cell,
+  .col-title {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.2rem;
+  }
+  .submit-btn {
+    padding: 0.65rem 1.3rem;
+  }
+}

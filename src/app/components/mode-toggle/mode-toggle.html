@@ -1,0 +1,12 @@
+<div class="mode-row">
+  <label class="mode-toggle">
+    <input
+      type="checkbox"
+      class="mode-toggle-input"
+      [checked]="checked()"
+      (change)="toggled.emit()"
+    />
+    <span class="mode-toggle-track"></span>
+    <span class="mode-toggle-label">Unlimited Mode</span>
+  </label>
+</div>

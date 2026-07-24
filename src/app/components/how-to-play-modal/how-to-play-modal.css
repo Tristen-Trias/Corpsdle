@@ -1,0 +1,94 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 100;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--navy);
+  border: 1px solid var(--turf-line);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 60px var(--shadow-color);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--chalk-dim);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--chalk);
+}
+
+.modal-title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  font-size: 1.4rem;
+  color: var(--chalk);
+}
+
+.modal-body {
+  margin: 0 0 1.1rem;
+  font-size: 1rem;
+  color: var(--chalk-dim);
+  line-height: 1.5;
+}
+
+.modal-example-label {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk-dim);
+}
+
+.example-board {
+  border-bottom: none;
+  padding: 0;
+  margin-bottom: 1.1rem;
+}
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--chalk-dim);
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.legend-swatch {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--turf-line);
+}

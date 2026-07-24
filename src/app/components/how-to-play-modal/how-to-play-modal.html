@@ -1,0 +1,41 @@
+@if (open()) {
+  <div class="modal-overlay" (click)="closed.emit()">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="how-to-play-title" (click)="$event.stopPropagation()">
+      <button type="button" class="modal-close" (click)="closed.emit()" aria-label="Close">✕</button>
+      <h2 id="how-to-play-title" class="modal-title">How to Play</h2>
+      <p class="modal-body">
+        Guess today's Drum Corps show in {{ maxGuesses }} tries. After each guess, the
+        <strong>Corps</strong>, <strong>Year</strong>, <strong>Score</strong>, and <strong>Placement</strong>
+        columns show hints comparing your guess to the answer.
+      </p>
+
+      <p class="modal-body">
+        Top 25 final scores for 2011-2025 World class and Open class shows are used. Expansions currently happening!
+      </p>
+
+      <p class="modal-example-label">Example guess:</p>
+      <div class="board example-board" role="table" aria-label="Example guess">
+        <div class="board-row board-head" role="row">
+          <span class="col-title" role="columnheader">Show</span>
+          <span class="col-cell" role="columnheader">Corps</span>
+          <span class="col-cell" role="columnheader">Year</span>
+          <span class="col-cell" role="columnheader">Score</span>
+          <span class="col-cell" role="columnheader">Place</span>
+        </div>
+        <div class="board-row" role="row">
+          <span class="col-title" role="cell">Felliniesque</span>
+          <span class="col-cell cell cell-match" role="cell">Blue Devils</span>
+          <span class="col-cell cell cell-close" role="cell">2014<em class="arrow">↑</em></span>
+          <span class="col-cell cell cell-far" role="cell">99.650</span>
+          <span class="col-cell cell cell-close" role="cell">1<em class="arrow">↓</em></span>
+        </div>
+      </div>
+
+      <ul class="legend">
+        <li><span class="legend-swatch cell-match"></span> Green - Correct Guess</li>
+        <li><span class="legend-swatch cell-close"></span> Orange - Close Guess, arrow points toward the answer</li>
+        <li><span class="legend-swatch cell-far"></span> Red - Wrong Guess</li>
+      </ul>
+    </div>
+  </div>
+}

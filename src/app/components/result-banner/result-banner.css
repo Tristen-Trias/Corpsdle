@@ -1,0 +1,37 @@
+.banner {
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--turf-line);
+}
+
+.banner-win {
+  background: var(--tint-correct);
+  border-color: var(--correct);
+}
+
+.banner-lose {
+  background: var(--tint-red);
+  border-color: var(--scarlet);
+}
+
+.banner-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  font-size: 1.1rem;
+  color: var(--correct-bright);
+}
+
+.banner-lose .banner-title {
+  color: var(--text-danger);
+}
+
+.banner-body {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+}
+
+.banner .submit-btn {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.3rem;
+}

@@ -1,0 +1,24 @@
+<div class="board" role="table" aria-label="Guess history">
+  <div class="board-row board-head" role="row">
+    <span class="col-cell" role="columnheader">Show</span>
+    <span class="col-cell" role="columnheader">Corps</span>
+    <span class="col-cell" role="columnheader">Year</span>
+    <span class="col-cell" role="columnheader">Score</span>
+    <span class="col-cell" role="columnheader">Place</span>
+  </div>
+  @for (g of guesses(); track g.show.title) {
+    <div class="board-row" role="row" [class.winning-row]="g.isWinningGuess">
+      <span class="col-title" role="cell">{{ g.show.title }}</span>
+      <span class="col-cell cell" [class]="hintClass(g.corpsHint)" role="cell">{{ g.show.corps }}</span>
+      <span class="col-cell cell" [class]="hintClass(g.yearHint)" role="cell">
+        {{ g.show.year }}<em class="arrow">{{ hintArrow(g.yearHint) }}</em>
+      </span>
+      <span class="col-cell cell" [class]="hintClass(g.scoreHint)" role="cell">
+        {{ g.show.score.toFixed(3) }}<em class="arrow">{{ hintArrow(g.scoreHint) }}</em>
+      </span>
+      <span class="col-cell cell" [class]="hintClass(g.placementHint)" role="cell">
+        {{ g.show.placement }}<em class="arrow">{{ hintArrow(g.placementHint) }}</em>
+      </span>
+    </div>
+  }
+</div>

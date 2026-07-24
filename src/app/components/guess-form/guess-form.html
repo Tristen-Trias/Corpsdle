@@ -1,0 +1,34 @@
+<form class="guess-form" (ngSubmit)="submitted.emit()">
+  <div class="input-wrap">
+    <input
+      type="text"
+      name="guess"
+      class="guess-input"
+      placeholder="Type a show title…"
+      autocomplete="off"
+      [ngModel]="guessInput()"
+      (ngModelChange)="inputChange.emit($event)"
+      (focus)="inputChange.emit(guessInput())"
+      (blur)="blurred.emit()"
+      aria-label="Guess a show title"
+    />
+    @if (suggestionsOpen() && suggestions().length) {
+      <ul class="suggestions">
+        @for (s of suggestions(); track s.title) {
+          <li>
+            <button type="button" (mousedown)="suggestionPicked.emit(s.title)">
+              <span class="sugg-title">{{ s.title }}</span>
+              <span class="sugg-meta">{{ s.corps }} · {{ s.year }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+  <button type="submit" class="submit-btn">Guess</button>
+</form>
+
+@if (guessError(); as err) {
+  <p class="error-msg">{{ err }}</p>
+}
+<p class="remaining">{{ guessesRemaining() }} guess{{ guessesRemaining() === 1 ? '' : 'es' }} left</p>

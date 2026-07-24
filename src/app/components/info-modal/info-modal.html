@@ -1,0 +1,41 @@
+@if (open()) {
+  <div class="modal-overlay" (click)="closed.emit()">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="info-title" (click)="$event.stopPropagation()">
+      <button type="button" class="modal-close" (click)="closed.emit()" aria-label="Close">✕</button>
+
+      <section class="modal-section">
+        <p class="modal-body">Source code for this project can be found on my
+          <a href="https://github.com/Tristen-Trias/Corpsdle" target="_blank" rel="noopener noreferrer">
+            GitHub</a>!
+          </p>
+        <p class="modal-body">Found a bug? Report it
+          <a href="mailto: drumcorpsdle@gmail.com" target="_blank" rel="noopener noreferrer">
+            here.
+          </a></p>
+      </section>
+
+      <hr class="modal-divider" />
+
+      <section class="modal-section">
+        <p class="modal-body">Inspired by
+          <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank" rel="noopener noreferrer">
+            Wordle</a>,
+          <a href="https://costcodle.com/" target="_blank" rel="noopener noreferrer">
+            Costcodle</a>, and
+          <a href="https://www.weddlegame.com/" target="_blank" rel="noopener noreferrer">
+            Weddle</a>!
+        </p>
+      </section>
+
+      <hr class="modal-divider" />
+
+      <section class="modal-section">
+        <p class="modal-body">
+          Icons provided by
+          <a href="https://fontawesome.com/" target="_blank" rel="noopener noreferrer">
+            Font Awesome</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+}

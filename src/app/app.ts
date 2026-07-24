@@ -1,7 +1,14 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { GameService, MAX_GUESSES } from './services/game';
 import { FieldHint } from './models/show';
+import { Theme } from './models/theme';
+import { Header } from './components/header/header';
+import { HowToPlayModal } from './components/how-to-play-modal/how-to-play-modal';
+import { InfoModal } from './components/info-modal/info-modal';
+import { ModeToggle } from './components/mode-toggle/mode-toggle';
+import { GuessBoard } from './components/guess-board/guess-board';
+import { ResultBanner } from './components/result-banner/result-banner';
+import { GuessForm } from './components/guess-form/guess-form';
 
 const THEME_STORAGE_KEY = 'corpsdle-theme';
 const HOW_TO_PLAY_SEEN_KEY = 'corpsdle-how-to-play-seen';
@@ -15,18 +22,15 @@ const TAGLINES = [
   'THeY\'Re alWaYs REaDY!1!',
 ];
 
-type Theme = 'dark' | 'light';
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule],
+  imports: [Header, HowToPlayModal, InfoModal, ModeToggle, GuessBoard, ResultBanner, GuessForm],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected readonly game = inject(GameService);
-  protected readonly maxGuesses = MAX_GUESSES;
 
   protected readonly guessInput = signal('');
   protected readonly suggestionsOpen = signal(false);
@@ -105,25 +109,9 @@ export class App {
     setTimeout(() => this.suggestionsOpen.set(false), 120);
   }
 
-  hintClass(hint: FieldHint | 'match' | 'far'): string {
-    switch (hint) {
-      case 'match':
-        return 'cell-match';
-      case 'close-higher':
-      case 'close-lower':
-        return 'cell-close';
-      case 'higher':
-      case 'lower':
-      case 'far':
-        return 'cell-far';
-      default:
-        return '';
-    }
-  }
-
   shareResults(): void {
     const attempts = this.game.status() === 'lost' ? 'X' : `${this.game.guesses().length}`;
-    const lines = [`Corpsdle #${this.game.gameNumber} ${attempts}/${this.maxGuesses}`];
+    const lines = [`Corpsdle #${this.game.gameNumber} ${attempts}/${MAX_GUESSES}`];
 
     for (const g of this.game.guesses()) {
       const corps = g.corpsHint === 'match' ? '🟩' : '🟥';
@@ -148,19 +136,6 @@ export class App {
       case 'higher':
       case 'lower':
         return '🟥';
-    }
-  }
-
-  hintArrow(hint: FieldHint): string {
-    switch (hint) {
-      case 'higher':
-      case 'close-higher':
-        return '↑';
-      case 'lower':
-      case 'close-lower':
-        return '↓';
-      default:
-        return '';
     }
   }
 }

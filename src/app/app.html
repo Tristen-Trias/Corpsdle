@@ -1,113 +1,19 @@
 <div class="field">
-  <header class="scoreboard-header">
-    <button type="button" class="how-to-play-btn" (click)="openHowToPlay()" aria-label="How to play" title="How to play">?</button>
-    <button type="button" class="info-btn" (click)="openInfo()" aria-label="Info" title="Info">i</button>
-    <button
-      type="button"
-      class="theme-toggle"
-      (click)="toggleTheme()"
-      [attr.aria-label]="theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
-      title="Toggle theme"
-    >
-      {{ theme() === 'dark' ? '☀️' : '🌙' }}
-    </button>
-    <p class="eyebrow">
-      @if (game.isUnlimited()) {
-        DCI · Unlimited Mode
-      } @else {
-        DCI · Daily Show Guesser · #{{ game.gameNumber }}
-      }
-    </p>
-    <h1 class="wordmark">Corpsdle</h1>
-    <p class="tagline">{{ tagline() }}</p>
-  </header>
+  <app-header
+    [theme]="theme()"
+    [isUnlimited]="game.isUnlimited()"
+    [gameNumber]="game.gameNumber"
+    [tagline]="tagline()"
+    (howToPlay)="openHowToPlay()"
+    (info)="openInfo()"
+    (themeToggled)="toggleTheme()"
+  />
 
-  <div class="mode-row">
-    <label class="mode-toggle">
-      <input
-        type="checkbox"
-        class="mode-toggle-input"
-        [checked]="game.isUnlimited()"
-        (change)="game.toggleUnlimited()"
-      />
-      <span class="mode-toggle-track"></span>
-      <span class="mode-toggle-label">Unlimited Mode</span>
-    </label>
-  </div>
+  <app-mode-toggle [checked]="game.isUnlimited()" (toggled)="game.toggleUnlimited()" />
 
-  @if (howToPlayOpen()) {
-    <div class="modal-overlay" (click)="closeHowToPlay()">
-      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="how-to-play-title" (click)="$event.stopPropagation()">
-        <button type="button" class="modal-close" (click)="closeHowToPlay()" aria-label="Close">✕</button>
-        <h2 id="how-to-play-title" class="modal-title">How to Play</h2>
-        <p class="modal-body">
-          Guess today's Drum Corps show in {{ maxGuesses }} tries. After each guess, the
-          <strong>Corps</strong>, <strong>Year</strong>, <strong>Score</strong>, and <strong>Placement</strong>
-          columns show hints comparing your guess to the answer.
-        </p>
+  <app-how-to-play-modal [open]="howToPlayOpen()" (closed)="closeHowToPlay()" />
 
-        <p class="modal-body">
-          Top 25 final scores for 2011-2025 World class and Open class shows are used. Expansions currently happening!
-        </p>
-
-        <p class="modal-example-label">Example guess:</p>
-        <div class="board example-board" role="table" aria-label="Example guess">
-          <div class="board-row board-head" role="row">
-            <span class="col-title" role="columnheader">Show</span>
-            <span class="col-cell" role="columnheader">Corps</span>
-            <span class="col-cell" role="columnheader">Year</span>
-            <span class="col-cell" role="columnheader">Score</span>
-            <span class="col-cell" role="columnheader">Place</span>
-          </div>
-          <div class="board-row" role="row">
-            <span class="col-title" role="cell">Felliniesque</span>
-            <span class="col-cell cell cell-match" role="cell">Blue Devils</span>
-            <span class="col-cell cell cell-close" role="cell">2014<em class="arrow">↑</em></span>
-            <span class="col-cell cell cell-far" role="cell">99.650</span>
-            <span class="col-cell cell cell-close" role="cell">1<em class="arrow">↓</em></span>
-          </div>
-        </div>
-
-        <ul class="legend">
-          <li><span class="legend-swatch cell-match"></span> Green - Correct Guess</li>
-          <li><span class="legend-swatch cell-close"></span> Orange - Close Guess, arrow points toward the answer</li>
-          <li><span class="legend-swatch cell-far"></span> Red - Wrong Guess</li>
-        </ul>
-      </div>
-    </div>
-  }
-
-  @if (infoOpen()) {
-    <div class="modal-overlay" (click)="closeInfo()">
-      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="info-title" (click)="$event.stopPropagation()">
-        <button type="button" class="modal-close" (click)="closeInfo()" aria-label="Close">✕</button>  
-
-        <section class="modal-section">
-          <p class="modal-body">Source code for this project can be found on my
-            <a href="https://github.com/Tristen-Trias/Corpsdle" target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>!</p>
-          <p class="modal-body">Found a bug? Report it 
-            <a href="mailto: drumcorpsdle@gmail.com" target="_blank" rel="noopener noreferrer">
-              here.
-            </a></p>
-        </section>
-
-        <hr class="modal-divider" />
-
-        <section class="modal-section">
-          <p class="modal-body">Inspired by 
-            <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank" rel="noopener noreferrer">
-              Wordle</a>,
-            <a href="https://costcodle.com/" target="_blank" rel="noopener noreferrer">
-              Costcodle</a>, and
-            <a href="https://www.weddlegame.com/" target="_blank" rel="noopener noreferrer">
-              Weddle</a>!
-          </p>
-        </section>
-      </div>
-    </div>
-  }
+  <app-info-modal [open]="infoOpen()" (closed)="closeInfo()" />
 
   @if (game.loadState() === 'loading') {
     <p class="status-msg">Loading today's chart…</p>
@@ -116,99 +22,31 @@
   } @else {
 
     @if (game.guesses().length > 0) {
-      <div class="board" role="table" aria-label="Guess history">
-        <div class="board-row board-head" role="row">
-          <span class="col-cell" role="columnheader">Show</span>
-          <span class="col-cell" role="columnheader">Corps</span>
-          <span class="col-cell" role="columnheader">Year</span>
-          <span class="col-cell" role="columnheader">Score</span>
-          <span class="col-cell" role="columnheader">Place</span>
-        </div>
-        @for (g of game.guesses(); track g.show.title) {
-          <div class="board-row" role="row" [class.winning-row]="g.isWinningGuess">
-            <span class="col-title" role="cell">{{ g.show.title }}</span>
-            <span class="col-cell cell" [class]="hintClass(g.corpsHint)" role="cell">{{ g.show.corps }}</span>
-            <span class="col-cell cell" [class]="hintClass(g.yearHint)" role="cell">
-              {{ g.show.year }}<em class="arrow">{{ hintArrow(g.yearHint) }}</em>
-            </span>
-            <span class="col-cell cell" [class]="hintClass(g.scoreHint)" role="cell">
-              {{ g.show.score.toFixed(3) }}<em class="arrow">{{ hintArrow(g.scoreHint) }}</em>
-            </span>
-            <span class="col-cell cell" [class]="hintClass(g.placementHint)" role="cell">
-              {{ g.show.placement }}<em class="arrow">{{ hintArrow(g.placementHint) }}</em>
-            </span>
-          </div>
-        }
-      </div>
+      <app-guess-board [guesses]="game.guesses()" />
     }
 
-    @if (game.status() === 'won') {
-      <div class="banner banner-win">
-        <p class="banner-title">Congratulations! You got it in {{ game.guesses().length }}/{{ maxGuesses }}</p>
-        <p class="banner-body">
-          {{ game.isUnlimited() ? 'The show was' : "Today's show was" }}
-          <strong>{{ game.answer()?.title }}</strong> - {{ game.answer()?.corps }}, {{ game.answer()?.year }}.
-        </p>
-        @if (game.isUnlimited()) {
-          <button type="button" class="submit-btn" (click)="game.startUnlimitedRound()">Next Show</button>
-        } @else {
-          <button type="button" class="submit-btn" (click)="shareResults()">
-            {{ shareCopied() ? 'Copied!' : 'Share Results' }}
-          </button>
-        }
-      </div>
-    } @else if (game.status() === 'lost') {
-      <div class="banner banner-lose">
-        <p class="banner-title">You ran out of guesses!</p>
-        <p class="banner-body">
-          {{ game.isUnlimited() ? 'The show was' : "Today's show was" }}
-          <strong>{{ game.answer()?.title }}</strong> · {{ game.answer()?.corps }} {{ game.answer()?.year }}.
-        </p>
-        @if (game.isUnlimited()) {
-          <button type="button" class="submit-btn" (click)="game.startUnlimitedRound()">Next Show</button>
-        } @else {
-          <button type="button" class="submit-btn" (click)="shareResults()">
-            {{ shareCopied() ? 'Copied!' : 'Share Results' }}
-          </button>
-        }
-      </div>
-    }
+    <app-result-banner
+      [status]="game.status()"
+      [isUnlimited]="game.isUnlimited()"
+      [guessCount]="game.guesses().length"
+      [answer]="game.answer()"
+      [shareCopied]="shareCopied()"
+      (nextShow)="game.startUnlimitedRound()"
+      (share)="shareResults()"
+    />
 
     @if (game.status() === 'playing') {
-      <form class="guess-form" (ngSubmit)="submit()">
-        <div class="input-wrap">
-          <input
-            type="text"
-            name="guess"
-            class="guess-input"
-            placeholder="Type a show title…"
-            autocomplete="off"
-            [ngModel]="guessInput()"
-            (ngModelChange)="onInputChange($event)"
-            (focus)="onInputChange(guessInput())"
-            (blur)="onBlur()"
-            aria-label="Guess a show title"
-          />
-          @if (suggestionsOpen() && suggestions().length) {
-            <ul class="suggestions">
-              @for (s of suggestions(); track s.title) {
-                <li>
-                  <button type="button" (mousedown)="pickSuggestion(s.title)">
-                    <span class="sugg-title">{{ s.title }}</span>
-                    <span class="sugg-meta">{{ s.corps }} · {{ s.year }}</span>
-                  </button>
-                </li>
-              }
-            </ul>
-          }
-        </div>
-        <button type="submit" class="submit-btn">Guess</button>
-      </form>
-
-      @if (game.guessError(); as err) {
-        <p class="error-msg">{{ err }}</p>
-      }
-      <p class="remaining">{{ game.guessesRemaining() }} guess{{ game.guessesRemaining() === 1 ? '' : 'es' }} left</p>
+      <app-guess-form
+        [guessInput]="guessInput()"
+        [suggestionsOpen]="suggestionsOpen()"
+        [suggestions]="suggestions()"
+        [guessError]="game.guessError()"
+        [guessesRemaining]="game.guessesRemaining()"
+        (inputChange)="onInputChange($event)"
+        (blurred)="onBlur()"
+        (submitted)="submit()"
+        (suggestionPicked)="pickSuggestion($event)"
+      />
     }
   }
 

@@ -1,0 +1,31 @@
+@if (status() === 'won') {
+  <div class="banner banner-win">
+    <p class="banner-title">Congratulations! You got it in {{ guessCount() }}/{{ maxGuesses }}</p>
+    <p class="banner-body">
+      {{ isUnlimited() ? 'The show was' : "Today's show was" }}
+      <strong>{{ answer()?.title }}</strong> - {{ answer()?.corps }}, {{ answer()?.year }}.
+    </p>
+    @if (isUnlimited()) {
+      <button type="button" class="submit-btn" (click)="nextShow.emit()">Next Show</button>
+    } @else {
+      <button type="button" class="submit-btn" (click)="share.emit()">
+        {{ shareCopied() ? 'Copied!' : 'Share Results' }}
+      </button>
+    }
+  </div>
+} @else if (status() === 'lost') {
+  <div class="banner banner-lose">
+    <p class="banner-title">You ran out of guesses!</p>
+    <p class="banner-body">
+      {{ isUnlimited() ? 'The show was' : "Today's show was" }}
+      <strong>{{ answer()?.title }}</strong> · {{ answer()?.corps }} {{ answer()?.year }}.
+    </p>
+    @if (isUnlimited()) {
+      <button type="button" class="submit-btn" (click)="nextShow.emit()">Next Show</button>
+    } @else {
+      <button type="button" class="submit-btn" (click)="share.emit()">
+        {{ shareCopied() ? 'Copied!' : 'Share Results' }}
+      </button>
+    }
+  </div>
+}

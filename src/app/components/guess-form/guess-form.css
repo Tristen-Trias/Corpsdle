@@ -1,0 +1,95 @@
+.guess-form {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.input-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.guess-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--chalk);
+  background: var(--surface-1);
+  border: 1px solid var(--turf-line);
+  border-radius: 4px;
+  outline: none;
+}
+
+.guess-input:focus {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px var(--tint-gold);
+}
+
+.guess-input:focus-visible {
+  outline: 2px solid var(--brass-bright);
+  outline-offset: 2px;
+}
+
+.guess-input::placeholder {
+  color: var(--chalk-dim);
+}
+
+.suggestions {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  background: var(--navy);
+  border: 1px solid var(--turf-line);
+  border-radius: 4px;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.suggestions li button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.55rem 0.6rem;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  color: var(--chalk);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+.suggestions li button:hover,
+.suggestions li button:focus-visible {
+  background: var(--hover-gold-tint);
+}
+
+.sugg-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--chalk-dim);
+  white-space: nowrap;
+}
+
+.remaining {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--chalk-dim);
+  text-align: right;
+}
+
+@media (max-width: 480px) {
+  .guess-form {
+    flex-direction: column;
+  }
+}
