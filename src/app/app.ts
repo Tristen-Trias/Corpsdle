@@ -5,6 +5,7 @@ import { Theme } from './models/theme';
 import { Header } from './components/header/header';
 import { HowToPlayModal } from './components/how-to-play-modal/how-to-play-modal';
 import { InfoModal } from './components/info-modal/info-modal';
+import { StatsModal } from './components/stats-modal/stats-modal';
 import { ModeToggle } from './components/mode-toggle/mode-toggle';
 import { GuessBoard } from './components/guess-board/guess-board';
 import { ResultBanner } from './components/result-banner/result-banner';
@@ -17,15 +18,19 @@ const TAGLINES = [
   "Its pronounced 'Cor-dle.'",
   'Box five guesses only.',
   'General effect: guessing.',
-  'No pa! They aren\'t booing!',
+  'No grandpa! They aren\'t booing!',
   'And this thing is - a Super Saiyan',
-  'THeY\'Re alWaYs REaDY!1!',
+  'They\'re always ready!',
+  'Alright drum corps, set up for a full run!',
+  'Gush and go!',
+  'Five minutes?? A whole Cadets free day!',
+  'I · vii · I · vi · V'
 ];
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header, HowToPlayModal, InfoModal, ModeToggle, GuessBoard, ResultBanner, GuessForm],
+  imports: [Header, HowToPlayModal, InfoModal, StatsModal, ModeToggle, GuessBoard, ResultBanner, GuessForm],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -37,6 +42,7 @@ export class App {
   protected readonly theme = signal<Theme>(this.loadInitialTheme());
   protected readonly howToPlayOpen = signal(false);
   protected readonly infoOpen = signal(false);
+  protected readonly statsOpen = signal(false);
   protected readonly tagline = signal(TAGLINES[Math.floor(Math.random() * TAGLINES.length)]);
   protected readonly shareCopied = signal(false);
 
@@ -82,6 +88,14 @@ export class App {
 
   closeInfo(): void {
     this.infoOpen.set(false);
+  }
+
+  openStats(): void {
+    this.statsOpen.set(true);
+  }
+
+  closeStats(): void {
+    this.statsOpen.set(false);
   }
 
   onInputChange(value: string): void {

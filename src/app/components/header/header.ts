@@ -14,6 +14,7 @@ export class Header {
   readonly tagline = input.required<string>();
 
   readonly howToPlay = output<void>();
+  readonly stats = output<void>();
   readonly info = output<void>();
   readonly themeToggled = output<void>();
 }

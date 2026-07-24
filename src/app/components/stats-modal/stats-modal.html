@@ -1,0 +1,32 @@
+@if (open()) {
+  <div class="modal-overlay" (click)="closed.emit()">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="stats-title" (click)="$event.stopPropagation()">
+      <button type="button" class="modal-close" (click)="closed.emit()" aria-label="Close">✕</button>
+      <h2 id="stats-title" class="modal-title">Statistics</h2>
+
+      <div class="stats-row">
+        <div class="stat-tile">
+          <span class="stat-value">{{ stats.gamesPlayed() }}</span>
+          <span class="stat-label">Played</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value">{{ stats.winPercent() }}%</span>
+          <span class="stat-label">Win %</span>
+        </div>
+      </div>
+
+      <p class="modal-example-label">Guess Distribution</p>
+      <div class="distribution">
+        @for (count of stats.guessDistribution(); track $index) {
+          <div class="dist-row">
+            <span class="dist-label">{{ $index + 1 }}</span>
+            <div class="dist-bar-track">
+              <div class="dist-bar" [style.width.%]="barWidth(count)"></div>
+            </div>
+            <span class="dist-value">{{ count }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

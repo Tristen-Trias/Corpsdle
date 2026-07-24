@@ -2,8 +2,8 @@
   <button type="button" class="how-to-play-btn" (click)="howToPlay.emit()" aria-label="How to play" title="How to play">
     <i class="fa-solid fa-circle-question"></i> How to play
   </button>
-  <button type="button" class="info-btn" (click)="info.emit()" aria-label="Info" title="Info">
-    <i class="fa-solid fa-circle-info"></i> Info
+  <button type="button" class="stats-btn" (click)="stats.emit()" aria-label="Statistics" title="Statistics">
+    <i class="fa-solid fa-chart-simple"></i> Stats
   </button>
   <button
     type="button"
@@ -13,6 +13,10 @@
     title="Toggle theme"
   >
     <i class="fa-solid" [class.fa-sun]="theme() === 'dark'" [class.fa-moon]="theme() !== 'dark'"></i>
+    {{ theme() === 'dark' ? 'Light' : 'Dark' }}
+  </button>
+  <button type="button" class="info-btn" (click)="info.emit()" aria-label="Info" title="Info">
+    <i class="fa-solid fa-circle-info"></i> Info
   </button>
   <p class="eyebrow">
     @if (isUnlimited()) {

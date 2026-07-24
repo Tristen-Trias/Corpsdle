@@ -1,0 +1,139 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 100;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--navy);
+  border: 1px solid var(--turf-line);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 60px var(--shadow-color);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--chalk-dim);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--chalk);
+}
+
+.modal-title {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  font-size: 1.4rem;
+  color: var(--chalk);
+}
+
+.modal-example-label {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk-dim);
+}
+
+/* ---------- Stat tiles ---------- */
+
+.stats-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.stat-tile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.75rem 0.5rem;
+  background: var(--surface-1);
+  border: 1px solid var(--turf-line);
+  border-radius: 6px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--chalk);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk-dim);
+}
+
+/* ---------- Guess distribution bar chart ---------- */
+
+.distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dist-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dist-label {
+  flex: none;
+  width: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--chalk-dim);
+  text-align: center;
+}
+
+.dist-bar-track {
+  flex: 1;
+  height: 18px;
+  background: var(--surface-1);
+  border: 1px solid var(--turf-line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dist-bar {
+  height: 100%;
+  background: var(--correct-bright);
+  border-radius: 0 3px 3px 0;
+  transition: width 0.3s ease;
+}
+
+.dist-value {
+  flex: none;
+  width: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--chalk-dim);
+  text-align: right;
+}

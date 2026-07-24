@@ -6,27 +6,9 @@
   padding-bottom: 1.25rem;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  line-height: 1;
-  background: var(--surface-1);
-  color: var(--chalk);
-  border: 1px solid var(--turf-line);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-
+.theme-toggle,
 .how-to-play-btn,
+.stats-btn,
 .info-btn {
   position: absolute;
   top: 0;
@@ -51,18 +33,28 @@
   left: 0;
 }
 
-.info-btn {
+.stats-btn {
   left: 7.4rem;
+}
+
+.theme-toggle {
+  right: 0;
+}
+
+.info-btn {
+  right: 7.4rem;
 }
 
 .theme-toggle:hover,
 .how-to-play-btn:hover,
+.stats-btn:hover,
 .info-btn:hover {
   border-color: var(--brass);
 }
 
 .theme-toggle:focus-visible,
 .how-to-play-btn:focus-visible,
+.stats-btn:focus-visible,
 .info-btn:focus-visible {
   outline: 2px solid var(--brass-bright);
   outline-offset: 2px;
@@ -93,14 +85,20 @@
 }
 
 @media (max-width: 600px) {
+  .theme-toggle,
   .how-to-play-btn,
+  .stats-btn,
   .info-btn {
     width: 5.5rem;
     padding: 0.4rem 0.4rem;
     font-size: 0.68rem;
   }
 
-  .info-btn {
+  .stats-btn {
     left: 5.9rem;
+  }
+
+  .info-btn {
+    right: 5.9rem;
   }
 }

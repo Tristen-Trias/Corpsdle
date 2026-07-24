@@ -24,7 +24,7 @@ export class GameService {
   readonly guessError = signal<string | null>(null);
 
   /** Deterministic "today" - same puzzle for a player until the calendar date changes at their local midnight. */
-  private readonly todayKey = this.getLocalDateKey();
+  readonly todayKey = this.getLocalDateKey();
 
   readonly gameNumber = this.getGameNumber();
 
@@ -36,6 +36,16 @@ export class GameService {
   private readonly unlimitedAnswer = signal<Show | null>(null);
 
   readonly guesses = computed(() => (this.isUnlimited() ? this.unlimitedGuesses() : this.dailyGuesses()));
+
+  /** Daily-only result, regardless of which mode the player currently has selected - used for stats tracking. */
+  readonly dailyStatus = computed<GameStatus>(() => {
+    const list = this.dailyGuesses();
+    if (list.some((g) => g.isWinningGuess)) return 'won';
+    if (list.length >= MAX_GUESSES) return 'lost';
+    return 'playing';
+  });
+
+  readonly dailyGuessCount = computed(() => this.dailyGuesses().length);
 
   private readonly dailyAnswer = computed<Show | null>(() => {
     const pool = this.shows();

@@ -5,6 +5,7 @@
     [gameNumber]="game.gameNumber"
     [tagline]="tagline()"
     (howToPlay)="openHowToPlay()"
+    (stats)="openStats()"
     (info)="openInfo()"
     (themeToggled)="toggleTheme()"
   />
@@ -14,6 +15,8 @@
   <app-how-to-play-modal [open]="howToPlayOpen()" (closed)="closeHowToPlay()" />
 
   <app-info-modal [open]="infoOpen()" (closed)="closeInfo()" />
+
+  <app-stats-modal [open]="statsOpen()" (closed)="closeStats()" />
 
   @if (game.loadState() === 'loading') {
     <p class="status-msg">Loading today's chart…</p>
