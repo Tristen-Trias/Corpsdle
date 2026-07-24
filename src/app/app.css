@@ -434,11 +434,14 @@
   text-transform: uppercase;
   color: var(--chalk-dim);
   padding: 0 0.15rem 0.3rem;
+  text-align: center;
 }
 
 .col-title {
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   font-size: 0.85rem;
   font-weight: 600;
   padding: 0.5rem 0.6rem;
