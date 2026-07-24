@@ -34,6 +34,7 @@ export class App {
   protected readonly howToPlayOpen = signal(false);
   protected readonly infoOpen = signal(false);
   protected readonly tagline = signal(TAGLINES[Math.floor(Math.random() * TAGLINES.length)]);
+  protected readonly shareCopied = signal(false);
 
   protected readonly suggestions = computed(() => this.game.suggestionsFor(this.guessInput()));
 
@@ -117,6 +118,36 @@ export class App {
         return 'cell-far';
       default:
         return '';
+    }
+  }
+
+  shareResults(): void {
+    const attempts = this.game.status() === 'lost' ? 'X' : `${this.game.guesses().length}`;
+    const lines = [`Corpsdle #${this.game.gameNumber} ${attempts}/${this.maxGuesses}`];
+
+    for (const g of this.game.guesses()) {
+      const corps = g.corpsHint === 'match' ? '🟩' : '🟥';
+      lines.push(corps + this.shareCell(g.yearHint) + this.shareCell(g.scoreHint) + this.shareCell(g.placementHint));
+    }
+
+    lines.push(`${location.origin}${location.pathname}`);
+
+    navigator.clipboard.writeText(lines.join('\n')).then(() => {
+      this.shareCopied.set(true);
+      setTimeout(() => this.shareCopied.set(false), 2000);
+    });
+  }
+
+  private shareCell(hint: FieldHint): string {
+    switch (hint) {
+      case 'match':
+        return '🟩';
+      case 'close-higher':
+      case 'close-lower':
+        return '🟨';
+      case 'higher':
+      case 'lower':
+        return '🟥';
     }
   }
 

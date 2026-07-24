@@ -7,7 +7,7 @@ const YEAR_CLOSE = 3;
 const SCORE_CLOSE = 1.0;
 const PLACEMENT_CLOSE = 2;
 
-/** The date Corpsdle's puzzle numbering starts counting from — day 1. */
+/** The date Corpsdle's puzzle numbering starts counting from day 1. */
 const LAUNCH_DATE_KEY = '2026-07-23';
 const DAILY_STORAGE_PREFIX = 'corpsdle-daily-';
 
@@ -22,7 +22,7 @@ export class GameService {
   readonly loadState = signal<LoadState>('loading');
   readonly guessError = signal<string | null>(null);
 
-  /** Deterministic "today" — same puzzle for a player until the calendar date changes at their local midnight. */
+  /** Deterministic "today" - same puzzle for a player until the calendar date changes at their local midnight. */
   private readonly todayKey = this.getLocalDateKey();
 
   readonly gameNumber = this.getGameNumber();
@@ -97,7 +97,7 @@ export class GameService {
     const trimmed = title.trim().toLowerCase();
     const show = this.shows().find((s) => s.title.toLowerCase() === trimmed);
     if (!show) {
-      this.guessError.set("That's not a show in today's pool — pick one from the suggestions.");
+      this.guessError.set("That's not a show in today's pool, pick one from the suggestions.");
       return;
     }
     if (this.guesses().some((g) => g.show.title === show.title)) {

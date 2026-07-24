@@ -147,10 +147,14 @@
         <p class="banner-title">Congratulations! You got it in {{ game.guesses().length }}/{{ maxGuesses }}</p>
         <p class="banner-body">
           {{ game.isUnlimited() ? 'The show was' : "Today's show was" }}
-          <strong>{{ game.answer()?.title }}</strong> — {{ game.answer()?.corps }}, {{ game.answer()?.year }}.
+          <strong>{{ game.answer()?.title }}</strong> - {{ game.answer()?.corps }}, {{ game.answer()?.year }}.
         </p>
         @if (game.isUnlimited()) {
           <button type="button" class="submit-btn" (click)="game.startUnlimitedRound()">Next Show</button>
+        } @else {
+          <button type="button" class="submit-btn" (click)="shareResults()">
+            {{ shareCopied() ? 'Copied!' : 'Share Results' }}
+          </button>
         }
       </div>
     } @else if (game.status() === 'lost') {
@@ -162,6 +166,10 @@
         </p>
         @if (game.isUnlimited()) {
           <button type="button" class="submit-btn" (click)="game.startUnlimitedRound()">Next Show</button>
+        } @else {
+          <button type="button" class="submit-btn" (click)="shareResults()">
+            {{ shareCopied() ? 'Copied!' : 'Share Results' }}
+          </button>
         }
       </div>
     }
