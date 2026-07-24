@@ -247,7 +247,7 @@
     { "title": "Nevermore", "corps": "Oregon Crusaders", "year": 2014, "score": 80.100, "placement": 19 },
     { "title": "No Strings Attached ...", "corps": "Pacific Crest", "year": 2014, "score": 78.900, "placement": 20 },
     { "title": "UnbreakABLE: The Human Spirit is Limitless", "corps": "Mandarins", "year": 2014, "score": 78.150, "placement": 21 },
-    { "title": "Pay It Forward", "corps": "Jersey Surf Hyper Corps", "year": 2014, "score": 75.800, "placement": 22 },
+    { "title": "Pay It Forward", "corps": "Jersey Surf", "year": 2014, "score": 75.800, "placement": 22 },
     { "title": "Art of Darkness", "corps": "Genesis", "year": 2014, "score": 74.075, "placement": 23 },
     { "title": "Olympus", "corps": "Spartans", "year": 2014, "score": 74.050, "placement": 24 },
     { "title": "Nev7sky: Alexander's Legacy", "corps": "7th Regiment", "year": 2014, "score": 71.475, "placement": 25 },
@@ -272,7 +272,7 @@
     { "title": "Piano Man", "corps": "The Academy", "year": 2013, "score": 78.200, "placement": 19 },
     { "title": "Warped", "corps": "Blue Devils B", "year": 2013, "score": 77.950, "placement": 20 },
     { "title": "The Art of War", "corps": "Vanguard Cadets", "year": 2013, "score": 77.700, "placement": 21 },
-    { "title": "SOUL SURFIN': Bring on the FUNK!", "corps": "Jersey Surf Hyper Corps", "year": 2013, "score": 75.400, "placement": 22 },
+    { "title": "SOUL SURFIN': Bring on the FUNK!", "corps": "Jersey Surf", "year": 2013, "score": 75.400, "placement": 22 },
     { "title": "mOZaic", "corps": "Genesis", "year": 2013, "score": 74.650, "placement": 23 },
     { "title": "Live Free", "corps": "Spartans", "year": 2013, "score": 72.850, "placement": 24 },
     { "title": "Postcards from Havana", "corps": "Music City", "year": 2013, "score": 72.750, "placement": 25 },
@@ -295,7 +295,7 @@
     { "title": "Boundaries", "corps": "Colts", "year": 2012, "score": 79.200, "placement": 17 },
     { "title": "This Was the Future", "corps": "Troopers", "year": 2012, "score": 77.650, "placement": 18 },
     { "title": "Dreaming In Color", "corps": "Oregon Crusaders", "year": 2012, "score": 77.450, "placement": 19 },
-    { "title": "Bridgemania", "corps": "Jersey Surf Hyper Corps", "year": 2012, "score": 75.450, "placement": 20 },
+    { "title": "Bridgemania", "corps": "Jersey Surf", "year": 2012, "score": 75.450, "placement": 20 },
     { "title": "Ecstatic Waters", "corps": "Blue Devils B", "year": 2012, "score": 73.600, "placement": 21 },
     { "title": "Heroes and Legends", "corps": "Vanguard Cadets", "year": 2012, "score": 72.750, "placement": 22 },
     { "title": "Prophecy", "corps": "Mandarins", "year": 2012, "score": 71.600, "placement": 23 },
@@ -325,6 +325,6 @@
     { "title": "The Blue Hour", "corps": "Oregon Crusaders", "year": 2011, "score": 75.150, "placement": 22 },
     { "title": "Balance", "corps": "Vanguard Cadets", "year": 2011, "score": 72.850, "placement": 23 },
     { "title": "Pandora, a Dark Gift", "corps": "Seattle Cascades", "year": 2011, "score": 72.200, "placement": 24 },
-    { "title": "Petal Tones", "corps": "Jersey Surf Hyper Corps", "year": 2011, "score": 71.350, "placement": 25 }
+    { "title": "Petal Tones", "corps": "Jersey Surf", "year": 2011, "score": 71.350, "placement": 25 }
   ]
 }
