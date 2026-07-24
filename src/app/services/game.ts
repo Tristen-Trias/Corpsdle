@@ -77,8 +77,15 @@ export class GameService {
     const q = query.trim().toLowerCase();
     if (!q) return [];
     const guessedTitles = new Set(this.guesses().map((g) => g.show.title));
-    return this.shows()
-      .filter((s) => !guessedTitles.has(s.title) && s.title.toLowerCase().includes(q))
+    const candidates = this.shows().filter((s) => !guessedTitles.has(s.title));
+    const startsWith = candidates
+      .filter((s) => s.title.toLowerCase().startsWith(q))
+      .sort((a, b) => a.year - b.year);
+    if (startsWith.length > 0) return startsWith.slice(0, 6);
+
+    return candidates
+      .filter((s) => s.title.toLowerCase().includes(q))
+      .sort((a, b) => a.year - b.year)
       .slice(0, 6);
   }
 

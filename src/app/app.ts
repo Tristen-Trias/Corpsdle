@@ -6,6 +6,15 @@ import { FieldHint } from './models/show';
 const THEME_STORAGE_KEY = 'corpsdle-theme';
 const HOW_TO_PLAY_SEEN_KEY = 'corpsdle-how-to-play-seen';
 
+const TAGLINES = [
+  "Its pronounced 'Cor-dle.'",
+  'Box five guesses only.',
+  'General effect: guessing.',
+  'No pa! They aren\'t booing!',
+  'And this thing is - a Super Saiyan',
+  'THeY\'Re alWaYs REaDY!1!',
+];
+
 type Theme = 'dark' | 'light';
 
 @Component({
@@ -24,6 +33,7 @@ export class App {
   protected readonly theme = signal<Theme>(this.loadInitialTheme());
   protected readonly howToPlayOpen = signal(false);
   protected readonly infoOpen = signal(false);
+  protected readonly tagline = signal(TAGLINES[Math.floor(Math.random() * TAGLINES.length)]);
 
   protected readonly suggestions = computed(() => this.game.suggestionsFor(this.guessInput()));
 

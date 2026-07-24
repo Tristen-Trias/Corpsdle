@@ -19,7 +19,7 @@
       }
     </p>
     <h1 class="wordmark">Corpsdle</h1>
-    <p class="tagline">Its pronounced 'Cor-dle.'</p>
+    <p class="tagline">{{ tagline() }}</p>
   </header>
 
   <div class="mode-row">
@@ -155,10 +155,10 @@
       </div>
     } @else if (game.status() === 'lost') {
       <div class="banner banner-lose">
-        <p class="banner-title">RETREAT — out of guesses</p>
+        <p class="banner-title">You ran out of guesses!</p>
         <p class="banner-body">
           {{ game.isUnlimited() ? 'The show was' : "Today's show was" }}
-          <strong>{{ game.answer()?.title }}</strong> — {{ game.answer()?.corps }}, {{ game.answer()?.year }}.
+          <strong>{{ game.answer()?.title }}</strong> · {{ game.answer()?.corps }} {{ game.answer()?.year }}.
         </p>
         @if (game.isUnlimited()) {
           <button type="button" class="submit-btn" (click)="game.startUnlimitedRound()">Next Show</button>
