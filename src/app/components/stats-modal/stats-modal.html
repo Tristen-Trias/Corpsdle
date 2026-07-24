@@ -4,29 +4,62 @@
       <button type="button" class="modal-close" (click)="closed.emit()" aria-label="Close">✕</button>
       <h2 id="stats-title" class="modal-title">Statistics</h2>
 
-      <div class="stats-row">
-        <div class="stat-tile">
-          <span class="stat-value">{{ stats.gamesPlayed() }}</span>
-          <span class="stat-label">Played</span>
-        </div>
-        <div class="stat-tile">
-          <span class="stat-value">{{ stats.winPercent() }}%</span>
-          <span class="stat-label">Win %</span>
-        </div>
-      </div>
-
-      <p class="modal-example-label">Guess Distribution</p>
-      <div class="distribution">
-        @for (count of stats.guessDistribution(); track $index) {
-          <div class="dist-row">
-            <span class="dist-label">{{ $index + 1 }}</span>
-            <div class="dist-bar-track">
-              <div class="dist-bar" [style.width.%]="barWidth(count)"></div>
-            </div>
-            <span class="dist-value">{{ count }}</span>
+      @let daily = stats.daily();
+      <section class="stats-section">
+        <p class="stats-section-label">Daily</p>
+        <div class="stats-row">
+          <div class="stat-tile">
+            <span class="stat-value">{{ daily.gamesPlayed }}</span>
+            <span class="stat-label">Played</span>
           </div>
-        }
-      </div>
+          <div class="stat-tile">
+            <span class="stat-value">{{ daily.winPercent }}%</span>
+            <span class="stat-label">Win %</span>
+          </div>
+        </div>
+        <p class="modal-example-label">Guess Distribution</p>
+        <div class="distribution">
+          @for (count of daily.guessDistribution; track $index) {
+            <div class="dist-row">
+              <span class="dist-label">{{ $index + 1 }}</span>
+              <div class="dist-bar-track">
+                <div class="dist-bar" [style.width.%]="barWidth(count, daily.maxDistributionValue)"></div>
+              </div>
+              <span class="dist-value">{{ count }}</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <hr class="modal-divider" />
+
+      @let unlimited = stats.unlimited();
+      <section class="stats-section">
+        <p class="stats-section-label">Unlimited</p>
+        <div class="stats-row">
+          <div class="stat-tile">
+            <span class="stat-value">{{ unlimited.gamesPlayed }}</span>
+            <span class="stat-label">Played</span>
+          </div>
+          <div class="stat-tile">
+            <span class="stat-value">{{ unlimited.winPercent }}%</span>
+            <span class="stat-label">Win %</span>
+          </div>
+        </div>
+        <p class="modal-example-label">Guess Distribution</p>
+        <div class="distribution">
+          @for (count of unlimited.guessDistribution; track $index) {
+            <div class="dist-row">
+              <span class="dist-label">{{ $index + 1 }}</span>
+              <div class="dist-bar-track">
+                <div class="dist-bar" [style.width.%]="barWidth(count, unlimited.maxDistributionValue)"></div>
+              </div>
+              <span class="dist-value">{{ count }}</span>
+            </div>
+          }
+        </div>
+      </section>
+      <hr class="modal-divider" />
     </div>
   </div>
 }

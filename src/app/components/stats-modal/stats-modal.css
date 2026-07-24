@@ -59,6 +59,22 @@
   color: var(--chalk-dim);
 }
 
+.modal-divider {
+  margin: 1.25rem 0;
+  border: none;
+  border-top: 1px solid var(--turf-line);
+}
+
+/* ---------- Stats sections ---------- */
+
+.stats-section-label {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+  font-size: 1rem;
+  color: var(--brass);
+}
+
 /* ---------- Stat tiles ---------- */
 
 .stats-row {

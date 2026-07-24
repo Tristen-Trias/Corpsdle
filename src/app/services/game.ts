@@ -47,6 +47,16 @@ export class GameService {
 
   readonly dailyGuessCount = computed(() => this.dailyGuesses().length);
 
+  /** Unlimited-only result, regardless of which mode the player currently has selected - used for stats tracking. */
+  readonly unlimitedStatus = computed<GameStatus>(() => {
+    const list = this.unlimitedGuesses();
+    if (list.some((g) => g.isWinningGuess)) return 'won';
+    if (list.length >= MAX_GUESSES) return 'lost';
+    return 'playing';
+  });
+
+  readonly unlimitedGuessCount = computed(() => this.unlimitedGuesses().length);
+
   private readonly dailyAnswer = computed<Show | null>(() => {
     const pool = this.shows();
     if (pool.length === 0) return null;

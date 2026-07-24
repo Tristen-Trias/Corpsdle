@@ -13,7 +13,7 @@ export class StatsModal {
 
   protected readonly stats = inject(StatsService);
 
-  barWidth(count: number): number {
-    return (count / this.stats.maxDistributionValue()) * 100;
+  barWidth(count: number, max: number): number {
+    return (count / max) * 100;
   }
 }

@@ -1,5 +1,6 @@
 <div class="mode-row">
   <label class="mode-toggle">
+    <span class="mode-toggle-label" [class.mode-toggle-label-active]="!checked()">Daily Mode</span>
     <input
       type="checkbox"
       class="mode-toggle-input"
@@ -7,6 +8,6 @@
       (change)="toggled.emit()"
     />
     <span class="mode-toggle-track"></span>
-    <span class="mode-toggle-label">Unlimited Mode</span>
+    <span class="mode-toggle-label" [class.mode-toggle-label-active]="checked()">Unlimited Mode</span>
   </label>
 </div>

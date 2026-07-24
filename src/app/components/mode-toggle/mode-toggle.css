@@ -22,6 +22,14 @@
   opacity: 0;
 }
 
+.mode-toggle-label {
+  transition: color 0.15s ease;
+}
+
+.mode-toggle-label-active {
+  color: var(--chalk);
+}
+
 .mode-toggle-track {
   position: relative;
   width: 2.4rem;
@@ -44,14 +52,8 @@
   transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
-.mode-toggle-input:checked + .mode-toggle-track {
-  background: var(--tint-correct);
-  border-color: var(--correct);
-}
-
 .mode-toggle-input:checked + .mode-toggle-track::before {
   transform: translateX(1.05rem);
-  background: var(--correct-bright);
 }
 
 .mode-toggle-input:focus-visible + .mode-toggle-track {

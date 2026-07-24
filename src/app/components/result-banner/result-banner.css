@@ -20,6 +20,7 @@
 
 .banner-title {
   margin: 0 0 0.35rem;
+  text-align: center;
   font-family: var(--font-display);
   letter-spacing: 0.04em;
   font-size: 1.1rem;
@@ -32,10 +33,12 @@
 
 .banner-body {
   margin: 0 0 0.35rem;
+  text-align: center;
   font-size: 0.95rem;
 }
 
 .banner .submit-btn {
-  margin-top: 0.5rem;
+  display: block;
+  margin: 0.5rem auto 0;
   padding: 0.6rem 1.3rem;
 }
