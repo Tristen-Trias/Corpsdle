@@ -89,16 +89,23 @@
   .how-to-play-btn,
   .stats-btn,
   .info-btn {
-    width: 5.5rem;
-    padding: 0.4rem 0.4rem;
-    font-size: 0.68rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    gap: 0;
+    font-size: 1rem;
+    border-radius: 50%;
+  }
+
+  .btn-label {
+    display: none;
   }
 
   .stats-btn {
-    left: 5.9rem;
+    left: 2.65rem;
   }
 
   .info-btn {
-    right: 5.9rem;
+    right: 2.65rem;
   }
 }
