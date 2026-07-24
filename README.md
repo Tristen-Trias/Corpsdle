@@ -1,3 +1,10 @@
+# DISCLAIMER
+
+Yes, this code is very heavily extremely absolutely vibe coded. I thought it would be a neat
+project to get some insight how to set up and deploy something through cloudflare and github pages.
+
+I do not condone generative AI for any creative use within DCI. 
+
 # Corpsdle - a daily DCI show guessing game
 
 A Wordle-style daily guessing game built in Angular 22 (standalone components, signals,
@@ -28,5 +35,3 @@ Then open http://localhost:4200.
 ## Notes on the data
 
 The sample data in `shows.json` draws on real DCI World Class Finals results.
-
-Yes, this code is very heavily extremely absolutely vibe coded. I do not condone generative AI for any creative use within DCI.
