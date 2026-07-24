@@ -16,7 +16,7 @@ Then open http://localhost:4200.
 
 ## How it works
 
-- `public/data/shows-2025.json` holds the pool of shows the game draws from — corps, year,
+- `public/data/shows.json` holds the pool of shows the game draws from — corps, year,
   score, and Finals placement. This is the file you'd swap out or grow to add more shows.
 - The day's answer is picked deterministically from that pool based on the current date,
   so everyone sees the same puzzle on a given day, and it rotates at midnight local time.
