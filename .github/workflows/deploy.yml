@@ -27,7 +27,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npx ng build --base-href /Drumcorpsdle/
+      - run: npx ng build --base-href /Corpsdle/
 
       - uses: actions/upload-pages-artifact@v3
         with:
