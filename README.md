@@ -35,5 +35,7 @@ Then open http://localhost:4200.
 ## Stack
 
 Angular 22 with Typescript
+
 Hosted with Github Pages
+
 Domain name through Cloudflare
