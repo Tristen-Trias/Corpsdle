@@ -117,7 +117,7 @@ export class App {
 
   onInputChange(value: string): void {
     this.guessInput.set(value);
-    this.suggestionsOpen.set(value.trim().length > 0);
+    this.suggestionsOpen.set(value.trim().length > 0 || value === ' ');
     this.game.guessError.set(null);
   }
 
@@ -129,7 +129,7 @@ export class App {
 
   submit(): void {
     const value = this.guessInput();
-    if (!value.trim()) return;
+    if (!value) return;
     this.game.submitGuess(value);
     this.guessInput.set('');
     this.suggestionsOpen.set(false);

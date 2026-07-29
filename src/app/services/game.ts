@@ -1,20 +1,18 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FieldHint, GuessResult, Show } from '../models/show';
+import { GuessResult, Show } from '../models/show';
+import { buildGuessResult } from './guess-hints';
+import { getGameNumber, getLocalDateKey, mixIndex } from './puzzle-date';
+import { findShowByGuess, matchSuggestions } from './show-search';
 
 export const MAX_GUESSES = 6;
-const YEAR_CLOSE = 3;
-const SCORE_CLOSE = 1.0;
-const PLACEMENT_CLOSE = 2;
-
-/** The date Corpsdle's puzzle numbering starts counting from day 1. */
-const LAUNCH_DATE_KEY = '2026-07-23';
 const DAILY_STORAGE_PREFIX = 'corpsdle-daily-';
 
 /**
- * Locked-in history of past daily answers, keyed by date - the source of truth so answers
- * never drift when shows.json changes later. Add today's answer here whenever you push.
- * TODO: Either use a real backend for this or find a way to dynamically update this list without breaking past answers.
+ * List is here so that it doesn't pick a duplicate show as the daily answer.
+ * No backend is used yet to track past answers, so its hard coded for now
+ * 
+ * Will probably make a historical record of past answers sometime later
  */
 const USED_ANSWERS: Record<string, string> = {
   '2026-07-23': 'A World of My Creation',
@@ -39,9 +37,9 @@ export class GameService {
   readonly guessError = signal<string | null>(null);
 
   /** Deterministic "today" - same puzzle for a player until the calendar date changes at their local midnight. */
-  readonly todayKey = this.getLocalDateKey();
+  readonly todayKey = getLocalDateKey();
 
-  readonly gameNumber = this.getGameNumber();
+  readonly gameNumber = getGameNumber(this.todayKey);
 
   private readonly mode = signal<Mode>('daily');
   readonly isUnlimited = computed(() => this.mode() === 'unlimited');
@@ -82,7 +80,7 @@ export class GameService {
     }
 
     const usedTitles = new Set(Object.values(USED_ANSWERS));
-    let index = this.mixIndex(this.gameNumber, pool.length);
+    let index = mixIndex(this.gameNumber, pool.length);
     while (usedTitles.has(pool[index].title) && usedTitles.size < pool.length) {
       index = (index + 1) % pool.length;
     }
@@ -120,19 +118,9 @@ export class GameService {
   }
 
   suggestionsFor(query: string): Show[] {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
     const guessedTitles = new Set(this.guesses().map((g) => g.show.title));
     const candidates = this.shows().filter((s) => !guessedTitles.has(s.title));
-    const startsWith = candidates
-      .filter((s) => s.title.toLowerCase().startsWith(q))
-      .sort((a, b) => a.year - b.year);
-    if (startsWith.length > 0) return startsWith.slice(0, 6);
-
-    return candidates
-      .filter((s) => s.title.toLowerCase().includes(q))
-      .sort((a, b) => a.year - b.year)
-      .slice(0, 6);
+    return matchSuggestions(query, candidates);
   }
 
   submitGuess(title: string): void {
@@ -140,8 +128,7 @@ export class GameService {
     const answer = this.answer();
     if (!answer || this.status() !== 'playing') return;
 
-    const trimmed = title.trim().toLowerCase();
-    const show = this.shows().find((s) => s.title.toLowerCase() === trimmed);
+    const show = findShowByGuess(this.shows(), title);
     if (!show) {
       this.guessError.set("That's not a show in today's pool, pick one from the suggestions.");
       return;
@@ -151,14 +138,7 @@ export class GameService {
       return;
     }
 
-    const result: GuessResult = {
-      show,
-      corpsHint: show.corps === answer.corps ? 'match' : 'far',
-      yearHint: this.compareNumeric(show.year, answer.year, YEAR_CLOSE),
-      scoreHint: this.compareNumeric(show.score, answer.score, SCORE_CLOSE),
-      placementHint: this.comparePlace(show.placement, answer.placement, PLACEMENT_CLOSE),
-      isWinningGuess: show.title === answer.title,
-    };
+    const result = buildGuessResult(show, answer);
 
     if (this.isUnlimited()) {
       this.unlimitedGuesses.update((list) => [...list, result]);
@@ -185,30 +165,6 @@ export class GameService {
     this.guessError.set(null);
   }
 
-  private compareNumeric(guessVal: number, answerVal: number, closeThreshold: number): FieldHint {
-    if (guessVal === answerVal) return 'match';
-    const diff = answerVal - guessVal;
-    const isClose = Math.abs(diff) <= closeThreshold;
-    if (diff > 0) return isClose ? 'close-higher' : 'higher';
-    return isClose ? 'close-lower' : 'lower';
-  }
-
-  private comparePlace(guess: number, answer: number, closeThreshold: number): FieldHint {
-    if (guess === answer) return 'match';
-    const diff = answer - guess;
-    const isClose = Math.abs(diff) <= closeThreshold;
-    if (diff > 0) return isClose ? 'close-lower' : 'lower';
-    return isClose ? 'close-higher' : 'higher';
-  }
-
-  private getGameNumber(): number {
-    const msPerDay = 1000 * 3600 * 24;
-    const timeDifference = Date.parse(this.todayKey) - Date.parse(LAUNCH_DATE_KEY);
-    const dayDifference = timeDifference / msPerDay;
-
-    return Math.round(dayDifference) + 1;
-  }
-
   private dailyStorageKey(): string {
     return `${DAILY_STORAGE_PREFIX}${this.todayKey}`;
   }
@@ -220,27 +176,5 @@ export class GameService {
     } catch {
       return [];
     }
-  }
-
-  /** Today's calendar date in the browser's local time zone, as YYYY-MM-DD. */
-  private getLocalDateKey(): string {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-
-  /**
-   * Integer avalanche hash (Chris Wellons' "triple32") seeded by the day number.
-   * Unlike hashing the date string directly, this scatters consecutive days across
-   * the whole pool instead of walking sequentially through it.
-   */
-  private mixIndex(seed: number, length: number): number {
-    let x = seed >>> 0;
-    x = Math.imul(x ^ (x >>> 16), 0x7feb352d);
-    x = Math.imul(x ^ (x >>> 15), 0x846ca68b);
-    x = (x ^ (x >>> 16)) >>> 0;
-    return x % length;
   }
 }
