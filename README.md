@@ -1,7 +1,8 @@
 # DISCLAIMER
 
 Yes, this code is very heavily extremely absolutely vibe coded. I thought it would be a neat
-project to get some insight how to set up and deploy something through cloudflare and github pages.
+project to get some insight how to set up and deploy something through cloudflare and github pages. I 
+am a full time software engineer, so I *somewhat* know what I'm doing
 
 I do not condone generative AI for any creative use within DCI. 
 
