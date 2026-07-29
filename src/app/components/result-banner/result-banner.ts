@@ -14,6 +14,7 @@ export class ResultBanner {
   readonly guessCount = input.required<number>();
   readonly answer = input.required<Show | null>();
   readonly shareCopied = input.required<boolean>();
+  readonly shareText = input.required<string | null>();
 
   readonly nextShow = output<void>();
   readonly share = output<void>();

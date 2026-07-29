@@ -201,6 +201,56 @@ body {
   color: var(--correct-bright);
 }
 
+@keyframes title-pop {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes cell-flip {
+  from {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.board-row:not(.board-head) {
+  perspective: 400px;
+}
+
+.board-row:not(.board-head) .col-title {
+  animation: title-pop 0.15s ease-out;
+}
+
+.board-row:not(.board-head) .cell {
+  animation: cell-flip 0.35s ease-in backwards;
+}
+
+.board-row:not(.board-head) .cell:nth-of-type(2) {
+  animation-delay: 0.12s;
+}
+
+.board-row:not(.board-head) .cell:nth-of-type(3) {
+  animation-delay: 0.27s;
+}
+
+.board-row:not(.board-head) .cell:nth-of-type(4) {
+  animation-delay: 0.42s;
+}
+
+.board-row:not(.board-head) .cell:nth-of-type(5) {
+  animation-delay: 0.57s;
+}
+
 @media (max-width: 480px) {
   .board-row {
     grid-template-columns: 1.1fr repeat(4, 1fr);

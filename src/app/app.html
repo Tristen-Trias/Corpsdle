@@ -34,6 +34,7 @@
       [guessCount]="game.guesses().length"
       [answer]="game.answer()"
       [shareCopied]="shareCopied()"
+      [shareText]="shareText()"
       (nextShow)="game.startUnlimitedRound()"
       (share)="shareResults()"
     />

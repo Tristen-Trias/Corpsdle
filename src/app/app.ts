@@ -48,6 +48,23 @@ export class App {
 
   protected readonly suggestions = computed(() => this.game.suggestionsFor(this.guessInput()));
 
+  protected readonly shareText = computed<string | null>(() => {
+    const status = this.game.status();
+    if (status !== 'won' && status !== 'lost') return null;
+
+    const attempts = status === 'lost' ? 'X' : `${this.game.guesses().length}`;
+    const lines = [`Corpsdle #${this.game.gameNumber} ${attempts}/${MAX_GUESSES}`];
+
+    for (const g of this.game.guesses()) {
+      const corps = g.corpsHint === 'match' ? '🟩' : '🟥';
+      lines.push(corps + this.shareCell(g.yearHint) + this.shareCell(g.scoreHint) + this.shareCell(g.placementHint));
+    }
+
+    lines.push(`${location.origin}${location.pathname}`);
+
+    return lines.join('\n');
+  });
+
   constructor() {
     this.applyTheme(this.theme());
 
@@ -124,17 +141,10 @@ export class App {
   }
 
   shareResults(): void {
-    const attempts = this.game.status() === 'lost' ? 'X' : `${this.game.guesses().length}`;
-    const lines = [`Corpsdle #${this.game.gameNumber} ${attempts}/${MAX_GUESSES}`];
+    const text = this.shareText();
+    if (!text) return;
 
-    for (const g of this.game.guesses()) {
-      const corps = g.corpsHint === 'match' ? '🟩' : '🟥';
-      lines.push(corps + this.shareCell(g.yearHint) + this.shareCell(g.scoreHint) + this.shareCell(g.placementHint));
-    }
-
-    lines.push(`${location.origin}${location.pathname}`);
-
-    navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    navigator.clipboard.writeText(text).then(() => {
       this.shareCopied.set(true);
       setTimeout(() => this.shareCopied.set(false), 2000);
     });

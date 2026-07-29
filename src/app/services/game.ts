@@ -11,6 +11,21 @@ const PLACEMENT_CLOSE = 2;
 const LAUNCH_DATE_KEY = '2026-07-23';
 const DAILY_STORAGE_PREFIX = 'corpsdle-daily-';
 
+/**
+ * Locked-in history of past daily answers, keyed by date - the source of truth so answers
+ * never drift when shows.json changes later. Add today's answer here whenever you push.
+ * TODO: Either use a real backend for this or find a way to dynamically update this list without breaking past answers.
+ */
+const USED_ANSWERS: Record<string, string> = {
+  '2026-07-23': 'A World of My Creation',
+  '2026-07-24': 'Gasoline Rainbows',
+  '2026-07-25': 'Somewhere New',
+  '2026-07-26': 'Welcome to the VOID',
+  '2026-07-27': 'The Gift',
+  '2026-07-28': 'Dorothy',
+  '2026-07-29': 'I Am',
+};
+
 type LoadState = 'loading' | 'ready' | 'error';
 type Mode = 'daily' | 'unlimited';
 export type GameStatus = 'playing' | 'won' | 'lost';
@@ -60,7 +75,17 @@ export class GameService {
   private readonly dailyAnswer = computed<Show | null>(() => {
     const pool = this.shows();
     if (pool.length === 0) return null;
-    const index = this.hashToIndex(this.todayKey, pool.length);
+
+    const recordedTitle = USED_ANSWERS[this.todayKey];
+    if (recordedTitle) {
+      return pool.find((s) => s.title === recordedTitle) ?? null;
+    }
+
+    const usedTitles = new Set(Object.values(USED_ANSWERS));
+    let index = this.mixIndex(this.gameNumber, pool.length);
+    while (usedTitles.has(pool[index].title) && usedTitles.size < pool.length) {
+      index = (index + 1) % pool.length;
+    }
     return pool[index];
   });
 
@@ -206,12 +231,16 @@ export class GameService {
     return `${year}-${month}-${day}`;
   }
 
-  /** Simple deterministic string hash so the same date always maps to the same show. */
-  private hashToIndex(key: string, length: number): number {
-    let hash = 0;
-    for (let i = 0; i < key.length; i++) {
-      hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
-    }
-    return hash % length;
+  /**
+   * Integer avalanche hash (Chris Wellons' "triple32") seeded by the day number.
+   * Unlike hashing the date string directly, this scatters consecutive days across
+   * the whole pool instead of walking sequentially through it.
+   */
+  private mixIndex(seed: number, length: number): number {
+    let x = seed >>> 0;
+    x = Math.imul(x ^ (x >>> 16), 0x7feb352d);
+    x = Math.imul(x ^ (x >>> 15), 0x846ca68b);
+    x = (x ^ (x >>> 16)) >>> 0;
+    return x % length;
   }
 }

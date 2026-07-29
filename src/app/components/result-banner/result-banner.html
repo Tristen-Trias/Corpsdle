@@ -8,6 +8,9 @@
     @if (isUnlimited()) {
       <button type="button" class="submit-btn" (click)="nextShow.emit()">Next Show</button>
     } @else {
+      @if (shareText(); as text) {
+        <pre class="share-preview">{{ text }}</pre>
+      }
       <button type="button" class="submit-btn" (click)="share.emit()">
         {{ shareCopied() ? 'Copied!' : 'Share Results' }}
       </button>
@@ -23,6 +26,9 @@
     @if (isUnlimited()) {
       <button type="button" class="submit-btn" (click)="nextShow.emit()">Next Show</button>
     } @else {
+      @if (shareText(); as text) {
+        <pre class="share-preview">{{ text }}</pre>
+      }
       <button type="button" class="submit-btn" (click)="share.emit()">
         {{ shareCopied() ? 'Copied!' : 'Share Results' }}
       </button>

@@ -42,3 +42,19 @@
   margin: 0.5rem auto 0;
   padding: 0.6rem 1.3rem;
 }
+
+.share-preview {
+  margin: 0.6rem auto 0;
+  padding: 0.55rem 0.7rem;
+  width: fit-content;
+  max-width: 100%;
+  background: var(--surface-1);
+  border: 1px solid var(--turf-line);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-align: center;
+  white-space: pre-wrap;
+  word-break: break-word;
+}

@@ -23,8 +23,10 @@ Then open http://localhost:4200.
 ## How it works
 
 - `public/data/shows.json` holds the pool of shows the game draws from: corps, year,
-  score, and Finals placement. This is the file you'd swap out or grow to add more shows.
-  - This is show data from **2011 to 2025**
+  score, and Finals placement.
+  - Show data from 2008 to 2025 
+  - Up to the top 25 scores from both Open class and World class
+  - Anything before 2010 is World class/Div I only
 - The day's answer is picked deterministically from that pool based on the current date,
   so everyone sees the same puzzle on a given day, and it rotates at midnight local time.
 - Guesses must match a title in the pool exactly (an autocomplete dropdown helps with
